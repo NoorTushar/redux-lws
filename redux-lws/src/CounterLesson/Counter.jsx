@@ -1,35 +1,36 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 
-const Counter = () => {
-   const [count, setCount] = useState(0);
+import Button from "./Button";
 
-   const handleCount = (operation) => {
-      if (operation === "add") {
-         setCount((value) => value + 1);
-      } else if (operation === "subtract") {
-         setCount((value) => value - 1);
-      }
-   };
+const Counter = ({ id, count, handleCount }) => {
+   const thisCount = count.find((c) => c.id === id);
 
    return (
       <div className="shadow-lg rounded-lg border max-w-lg mx-auto p-10 mb-4">
-         <h3 className="text-4xl mb-4">{count}</h3>
+         <h3 className="text-4xl mb-4">{thisCount.count}</h3>
          <div className="space-x-3">
-            <button
-               onClick={() => handleCount("add")}
-               className="btn btn-success"
+            <Button
+               onClick={() => handleCount(id, "add")}
+               className={"btn-primary"}
             >
                Increment
-            </button>
-            <button
-               onClick={() => handleCount("subtract")}
-               className="btn btn-error"
+            </Button>
+
+            <Button
+               onClick={() => handleCount(id, "subtract")}
+               className={"btn-secondary"}
             >
                Decrement
-            </button>
+            </Button>
          </div>
       </div>
    );
 };
 
 export default Counter;
+
+Counter.propTypes = {
+   id: PropTypes.number.isRequired,
+   count: PropTypes.array.isRequired,
+   handleCount: PropTypes.func.isRequired,
+};
