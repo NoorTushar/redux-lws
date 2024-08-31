@@ -26,8 +26,15 @@ const CounterLesson = () => {
    const totalCount = count.reduce((total, c) => total + c.count, 0);
    return (
       <>
-         <Counter count={count} id={1} handleCount={handleCount} />
-         <Counter count={count} id={2} handleCount={handleCount} />
+         {countData.map((data) => (
+            <Counter
+               key={data.id}
+               count={count}
+               id={data.id}
+               handleCount={handleCount}
+            />
+         ))}
+
          <DisplayCounter count={totalCount} />
       </>
    );
