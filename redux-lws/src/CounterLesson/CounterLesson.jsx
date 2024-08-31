@@ -6,27 +6,29 @@ const countData = [
    { id: 1, count: 0 },
    { id: 2, count: 0 },
 ];
+
 const CounterLesson = () => {
-   const [count, setCount] = useState([...countData]);
+   const [count, setCount] = useState(countData.map((item) => ({ ...item })));
 
    const handleCount = (id, type) => {
-      const matchedCount = count.find((c) => c.id === id);
-
-      if (type === "add") {
-         matchedCount.count = matchedCount.count + 1;
-      } else if (type === "subtract") {
-         matchedCount.count = matchedCount.count - 1;
-      }
-
-      const allOtherCounts = count.filter((count) => count.id !== id);
-
-      setCount([...allOtherCounts, matchedCount]);
+      setCount((prevCount) =>
+         prevCount.map((c) => {
+            if (c.id === id) {
+               return {
+                  ...c,
+                  count: type === "add" ? c.count + 1 : c.count - 1,
+               };
+            }
+            return c;
+         })
+      );
    };
 
    const totalCount = count.reduce((total, c) => total + c.count, 0);
+
    return (
       <>
-         {countData.map((data) => (
+         {count.map((data) => (
             <Counter
                key={data.id}
                count={count}
