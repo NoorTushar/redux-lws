@@ -2,6 +2,25 @@ const incrementEl = document.getElementById("increment");
 const decrementEl = document.getElementById("decrement");
 const counterEl = document.getElementById("counter");
 
+// action initialization
+const INCREMENT = "increment";
+const DECREMENT = "decrement";
+
+// action creators
+const increment = (value) => {
+   return {
+      type: INCREMENT,
+      payload: value,
+   };
+};
+
+const decrement = (value) => {
+   return {
+      type: DECREMENT,
+      payload: value,
+   };
+};
+
 // 1. declare initial state
 
 const initialState = {
@@ -11,10 +30,10 @@ const initialState = {
 // 2. create the reducer function for handling counter state
 
 function counterReducer(state = initialState, action) {
-   if (action.type === "increment") {
-      return { ...state, value: state.value + 1 };
-   } else if (action.type === "decrement") {
-      return { ...state, value: state.value - 1 };
+   if (action.type === INCREMENT) {
+      return { ...state, value: state.value + action.payload };
+   } else if (action.type === DECREMENT) {
+      return { ...state, value: state.value - action.payload };
    } else {
       return { ...state };
    }
@@ -26,15 +45,11 @@ const store = Redux.createStore(counterReducer);
 
 // 4. dispatching actions
 incrementEl.addEventListener("click", () => {
-   store.dispatch({
-      type: "increment",
-   });
+   store.dispatch(increment(10));
 });
 
 decrementEl.addEventListener("click", () => {
-   store.dispatch({
-      type: "decrement",
-   });
+   store.dispatch(decrement(2));
 });
 
 // 5. display on UI
