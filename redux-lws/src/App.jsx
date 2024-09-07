@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Counter from "./components/Counter";
 import HooksCounter from "./components/HooksCounter";
+import DynamicCounter from "./components/DynamicCounter";
 
 function App() {
    return (
@@ -13,6 +14,7 @@ function App() {
             {/* <CounterLesson /> */}
             {/* <Counter /> */}
             <HooksCounter />
+            <DynamicCounter />
          </Provider>
       </>
    );
